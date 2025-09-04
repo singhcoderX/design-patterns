@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<strategies>
+    <strategy id="1">
+        <class>com.aryan.designpatterns.behavioral.strategy.strategies.CreditCardPayment</class>
+    </strategy>
+    <strategy id="2">
+        <class>com.aryan.designpatterns.behavioral.strategy.strategies.UpiPayment</class>
+    </strategy>
+    <strategy id="3">
+        <class>com.aryan.designpatterns.behavioral.strategy.strategies.NetBankingPayment</class>
+    </strategy>
+</strategies>
