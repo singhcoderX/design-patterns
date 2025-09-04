@@ -1,14 +1,26 @@
 package com.aryan.designpatterns.behavioral.strategy.strategies;
 
-public class CreditCardPayment implements PaymentStrategy {
-    private final String cardNumber;
+import java.util.Scanner;
 
-    public CreditCardPayment(String cardNumber) {
-        this.cardNumber = cardNumber;
+public class CreditCardPayment implements PaymentStrategy {
+    public static final Integer ID = 1;
+
+    private String cardNumber;
+
+    @Override
+    public void pay(int amount, Scanner sc) {
+        System.out.println("Enter Credit Card Number: ");
+        this.cardNumber = sc.nextLine();
+        System.out.println("Processing upi payment...");
+        System.out.println("Amount " + amount + " paid successfully using Credit Card: " + cardNumber);
+    }
+
+    public CreditCardPayment() {
+        System.out.println("Credit Card Payment Gateway Initiated");
     }
 
     @Override
-    public void pay(int amount) {
-        System.out.println("Paid " + amount + " using Credit Card: " + cardNumber);
+    public String getSimpleName() {
+        return "Credit Card";
     }
 }

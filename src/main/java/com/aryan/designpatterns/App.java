@@ -1,6 +1,7 @@
 package com.aryan.designpatterns;
 
 import com.aryan.designpatterns.behavioral.strategy.PaymentContext;
+import com.aryan.designpatterns.behavioral.strategy.PaymentStrategyFactory;
 import com.aryan.designpatterns.behavioral.strategy.strategies.CreditCardPayment;
 import com.aryan.designpatterns.behavioral.strategy.strategies.PaymentStrategy;
 import com.aryan.designpatterns.behavioral.strategy.strategies.UpiPayment;
@@ -38,39 +39,15 @@ public class App {
 
     private static void runStrategyPattern(Scanner scanner) {
         System.out.println("\n--- Strategy Pattern Demo ---");
-
         PaymentContext context = new PaymentContext();
-
-        System.out.println("Choose payment method:");
-        System.out.println("1. Credit Card");
-        System.out.println("2. UPI");
-        System.out.print("Enter choice: ");
-        int paymentChoice = scanner.nextInt();
-        scanner.nextLine(); // consume newline
-
-        System.out.print("Enter amount to pay: ");
+        PaymentStrategy strategy = PaymentStrategyFactory.getPaymentStrategy(scanner);
+        if (strategy == null) {
+            return;
+        }
+        context.setPaymentStrategy(strategy);
+        System.out.println("Enter amount to pay:");
         int amount = scanner.nextInt();
         scanner.nextLine(); // consume newline
-
-        PaymentStrategy strategy;
-        switch (paymentChoice) {
-            case 1 -> {
-                System.out.print("Enter Credit Card number: ");
-                String cardNumber = scanner.nextLine();
-                strategy = new CreditCardPayment(cardNumber);
-            }
-            case 2 -> {
-                System.out.print("Enter UPI ID: ");
-                String upiId = scanner.nextLine();
-                strategy = new UpiPayment(upiId);
-            }
-            default -> {
-                System.out.println("Invalid payment method!");
-                return;
-            }
-        }
-
-        context.setPaymentStrategy(strategy);
-        context.payAmount(amount);
+        context.payAmount(amount, scanner);
     }
 }
