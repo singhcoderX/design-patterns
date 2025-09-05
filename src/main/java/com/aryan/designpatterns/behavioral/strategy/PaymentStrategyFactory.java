@@ -4,6 +4,7 @@ import com.aryan.designpatterns.behavioral.strategy.strategies.CreditCardPayment
 import com.aryan.designpatterns.behavioral.strategy.strategies.NetBankingPayment;
 import com.aryan.designpatterns.behavioral.strategy.strategies.PaymentStrategy;
 import com.aryan.designpatterns.behavioral.strategy.strategies.UpiPayment;
+import com.aryan.designpatterns.utils.XmlClassLoader;
 import org.xml.sax.SAXException;
 import org.w3c.dom.*;
 
@@ -17,42 +18,45 @@ import java.util.Scanner;
 
 
 public class PaymentStrategyFactory {
-    private static Map<Integer, PaymentStrategy> paymentStrategies = new HashMap<>();
+    private static Map<Integer, PaymentStrategy> paymentStrategies = null;
 
     static {
-        // Load XML from resources
-        InputStream is = PaymentStrategyFactory.class
-                .getClassLoader()
-                .getResourceAsStream("payment-strategies.xml");
-        if (is == null) {
-            throw new RuntimeException("payment-strategies.xml not found in resources folder!");
-        }
+        paymentStrategies =
+                XmlClassLoader.loadClassesFromXml("payment-strategies.xml", "strategy", PaymentStrategy.class);
 
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        try {
-            DocumentBuilder builder = dbf.newDocumentBuilder();
-            Document doc = (Document) builder.parse(is);
-
-            NodeList strategyList = doc.getElementsByTagName("strategy");
-            for (int i = 0; i < strategyList.getLength(); i++) {
-                Node node = strategyList.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) node;
-                    int id = Integer.parseInt(element.getAttribute("id"));
-                    String className = element.getElementsByTagName("class").item(0).getTextContent();
-                    PaymentStrategy paymentStrategy = (PaymentStrategy) Class.forName(className).getDeclaredConstructor().newInstance();
-                    paymentStrategies.put(id, paymentStrategy);
-                }
-            }
-        } catch (ParserConfigurationException | IOException | SAXException | ClassNotFoundException |
-                 InvocationTargetException | InstantiationException | IllegalAccessException |
-                 NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
-
-        paymentStrategies.put(CreditCardPayment.ID, new CreditCardPayment());
-        paymentStrategies.put(UpiPayment.ID, new UpiPayment());
-        paymentStrategies.put(NetBankingPayment.ID, new NetBankingPayment());
+//        // Load XML from resources
+//        InputStream is = PaymentStrategyFactory.class
+//                .getClassLoader()
+//                .getResourceAsStream("payment-strategies.xml");
+//        if (is == null) {
+//            throw new RuntimeException("payment-strategies.xml not found in resources folder!");
+//        }
+//
+//        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//        try {
+//            DocumentBuilder builder = dbf.newDocumentBuilder();
+//            Document doc = (Document) builder.parse(is);
+//
+//            NodeList strategyList = doc.getElementsByTagName("strategy");
+//            for (int i = 0; i < strategyList.getLength(); i++) {
+//                Node node = strategyList.item(i);
+//                if (node.getNodeType() == Node.ELEMENT_NODE) {
+//                    Element element = (Element) node;
+//                    int id = Integer.parseInt(element.getAttribute("id"));
+//                    String className = element.getElementsByTagName("class").item(0).getTextContent();
+//                    PaymentStrategy paymentStrategy = (PaymentStrategy) Class.forName(className).getDeclaredConstructor().newInstance();
+//                    paymentStrategies.put(id, paymentStrategy);
+//                }
+//            }
+//        } catch (ParserConfigurationException | IOException | SAXException | ClassNotFoundException |
+//                 InvocationTargetException | InstantiationException | IllegalAccessException |
+//                 NoSuchMethodException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        paymentStrategies.put(CreditCardPayment.ID, new CreditCardPayment());
+//        paymentStrategies.put(UpiPayment.ID, new UpiPayment());
+//        paymentStrategies.put(NetBankingPayment.ID, new NetBankingPayment());
     }
 
     public static void registerStrategy(Integer ID, PaymentStrategy strategy) {

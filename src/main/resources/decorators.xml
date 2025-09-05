@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators>
+    <decorator id="1">
+        <class>com.aryan.designpatterns.structural.decorator.decorators.SugarDecorator</class>
+    </decorator>
+    <decorator id="2">
+        <class>com.aryan.designpatterns.structural.decorator.decorators.MilkDecorator</class>
+    </decorator>
+</decorators>

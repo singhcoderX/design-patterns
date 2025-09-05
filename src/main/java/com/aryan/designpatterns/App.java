@@ -7,6 +7,11 @@ import com.aryan.designpatterns.behavioral.strategy.strategies.PaymentStrategy;
 import com.aryan.designpatterns.behavioral.strategy.strategies.UpiPayment;
 import com.aryan.designpatterns.behavioral.observer.YouTubeChannelSubject;
 import com.aryan.designpatterns.behavioral.observer.ConcreteSubscriber;
+import com.aryan.designpatterns.structural.decorator.Coffee;
+import com.aryan.designpatterns.structural.decorator.SimpleCoffee;
+import com.aryan.designpatterns.structural.decorator.SimpleCoffeeFactory;
+import com.aryan.designpatterns.structural.decorator.decorators.MilkDecorator;
+import com.aryan.designpatterns.structural.decorator.decorators.SugarDecorator;
 
 import java.util.Scanner;
 
@@ -21,6 +26,7 @@ public class App {
             System.out.println("\nSelect a pattern to run:");
             System.out.println("1. Strategy Pattern");
             System.out.println("2. Observer Pattern");
+            System.out.println("3. Decorator Pattern");
             // Future: 3. Singleton, etc.
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
@@ -30,6 +36,7 @@ public class App {
             switch (choice) {
                 case 1 -> runStrategyPattern(scanner);
                 case 2 -> runObserverPattern(scanner);
+                case 3 -> runDecoratorPattern(scanner);
                 case 0 -> {
                     System.out.println("Exiting program. Goodbye!");
                     exit = true;
@@ -75,5 +82,14 @@ public class App {
         System.out.print("Enter video title to upload: ");
         String videoTitle = scanner.nextLine();
         channel.uploadVideo(videoTitle);
+    }
+
+    private static void runDecoratorPattern(Scanner scanner) {
+        System.out.println("\n--- Decorator Pattern Demo (Coffee Example) ---");
+
+        Coffee coffee = SimpleCoffeeFactory.createCoffee(scanner);
+        
+        System.out.println("\nFinal Order: " + coffee.getDescription());
+        System.out.println("Total Price: ₹" + coffee.getCost());
     }
 }
