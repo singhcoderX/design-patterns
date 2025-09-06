@@ -24,43 +24,6 @@ public class PaymentStrategyFactory {
         paymentStrategies =
                 XmlClassLoader.loadClassesFromXml("payment-strategies.xml", "strategy", PaymentStrategy.class);
 
-//        // Load XML from resources
-//        InputStream is = PaymentStrategyFactory.class
-//                .getClassLoader()
-//                .getResourceAsStream("payment-strategies.xml");
-//        if (is == null) {
-//            throw new RuntimeException("payment-strategies.xml not found in resources folder!");
-//        }
-//
-//        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-//        try {
-//            DocumentBuilder builder = dbf.newDocumentBuilder();
-//            Document doc = (Document) builder.parse(is);
-//
-//            NodeList strategyList = doc.getElementsByTagName("strategy");
-//            for (int i = 0; i < strategyList.getLength(); i++) {
-//                Node node = strategyList.item(i);
-//                if (node.getNodeType() == Node.ELEMENT_NODE) {
-//                    Element element = (Element) node;
-//                    int id = Integer.parseInt(element.getAttribute("id"));
-//                    String className = element.getElementsByTagName("class").item(0).getTextContent();
-//                    PaymentStrategy paymentStrategy = (PaymentStrategy) Class.forName(className).getDeclaredConstructor().newInstance();
-//                    paymentStrategies.put(id, paymentStrategy);
-//                }
-//            }
-//        } catch (ParserConfigurationException | IOException | SAXException | ClassNotFoundException |
-//                 InvocationTargetException | InstantiationException | IllegalAccessException |
-//                 NoSuchMethodException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        paymentStrategies.put(CreditCardPayment.ID, new CreditCardPayment());
-//        paymentStrategies.put(UpiPayment.ID, new UpiPayment());
-//        paymentStrategies.put(NetBankingPayment.ID, new NetBankingPayment());
-    }
-
-    public static void registerStrategy(Integer ID, PaymentStrategy strategy) {
-        paymentStrategies.put(ID, strategy);
     }
 
     public static PaymentStrategy getPaymentStrategy(Scanner scanner) {

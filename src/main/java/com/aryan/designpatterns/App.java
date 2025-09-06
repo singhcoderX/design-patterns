@@ -7,6 +7,8 @@ import com.aryan.designpatterns.behavioral.strategy.strategies.PaymentStrategy;
 import com.aryan.designpatterns.behavioral.strategy.strategies.UpiPayment;
 import com.aryan.designpatterns.behavioral.observer.YouTubeChannelSubject;
 import com.aryan.designpatterns.behavioral.observer.ConcreteSubscriber;
+import com.aryan.designpatterns.creational.factory.ShapeFactory;
+import com.aryan.designpatterns.creational.factory.shapes.Shape;
 import com.aryan.designpatterns.structural.decorator.Coffee;
 import com.aryan.designpatterns.structural.decorator.SimpleCoffee;
 import com.aryan.designpatterns.structural.decorator.SimpleCoffeeFactory;
@@ -27,7 +29,8 @@ public class App {
             System.out.println("1. Strategy Pattern");
             System.out.println("2. Observer Pattern");
             System.out.println("3. Decorator Pattern");
-            // Future: 3. Singleton, etc.
+            System.out.println("4. Factory Pattern");
+
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
             int choice = scanner.nextInt();
@@ -37,6 +40,7 @@ public class App {
                 case 1 -> runStrategyPattern(scanner);
                 case 2 -> runObserverPattern(scanner);
                 case 3 -> runDecoratorPattern(scanner);
+                case 4 -> runFactoryPattern(scanner);
                 case 0 -> {
                     System.out.println("Exiting program. Goodbye!");
                     exit = true;
@@ -88,8 +92,18 @@ public class App {
         System.out.println("\n--- Decorator Pattern Demo (Coffee Example) ---");
 
         Coffee coffee = SimpleCoffeeFactory.createCoffee(scanner);
-        
+
         System.out.println("\nFinal Order: " + coffee.getDescription());
         System.out.println("Total Price: ₹" + coffee.getCost());
+    }
+
+    private static void runFactoryPattern(Scanner scanner) {
+        System.out.println("\n--- Factory Pattern Demo (Shape Example) ---");
+        Shape shape = ShapeFactory.getShape(scanner);
+        if (shape != null) {
+            shape.draw();
+        } else {
+            System.out.println("Invalid shape type!");
+        }
     }
 }

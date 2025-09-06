@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shapes>
+    <shape id="1">
+        <class>com.aryan.designpatterns.creational.factory.shapes.Circle</class>
+    </shape>
+    <shape id="2">
+        <class>com.aryan.designpatterns.creational.factory.shapes.Square</class>
+    </shape>
+    <shape id="3">
+        <class>com.aryan.designpatterns.creational.factory.shapes.Rectangle</class>
+    </shape>
+</shapes>
